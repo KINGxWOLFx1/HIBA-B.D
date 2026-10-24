@@ -1,0 +1,766 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#090a10">
+<meta name="description" content="A little birthday surprise for Hiba. A friendship since 2018.">
+<title>For Hiba ✨</title>
+
+<style>
+:root {
+  --bg: #090a10;
+  --panel: rgba(255,255,255,.055);
+  --white: #f7f5f2;
+  --muted: #a5a4b2;
+  --gold: #e8c995;
+  --pink: #f19bb8;
+  --line: rgba(255,255,255,.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+  color: var(--white);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(110,75,126,.20), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(196,132,155,.09), transparent 45%),
+    var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+#stars, #confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#stars { z-index: 0; }
+#confetti { z-index: 20; }
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: max(25px, env(safe-area-inset-top)) 23px
+           max(35px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.topline span:last-child {
+  color: var(--gold);
+}
+
+.hero {
+  width: 100%;
+  margin: auto 0;
+  padding: 42px 0;
+  animation: arrive 1.2s both;
+}
+
+.orbit {
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(232,201,149,.42);
+  border-radius: 50%;
+  margin: 0 auto 34px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  box-shadow: 0 0 55px rgba(232,201,149,.08);
+  animation: float 5s ease-in-out infinite;
+}
+
+.orbit::before,
+.orbit::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 50%;
+}
+
+.orbit::after {
+  inset: -8px;
+  border-color: rgba(241,155,184,.17);
+}
+
+.orbit span {
+  font-size: 43px;
+  filter: drop-shadow(0 0 18px rgba(232,201,149,.35));
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+}
+
+h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(49px, 13vw, 70px);
+  letter-spacing: -2px;
+  line-height: 1.05;
+}
+
+h1 em {
+  display: block;
+  font-weight: 400;
+  color: var(--pink);
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 22px auto 0;
+  max-width: 300px;
+}
+
+.years {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 32px auto 34px;
+}
+
+.years strong {
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.years .line {
+  width: 52px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.years small {
+  display: block;
+  font-family: sans-serif;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+.primary {
+  border: 1px solid rgba(232,201,149,.55);
+  background: linear-gradient(120deg, #e8c995, #f2d9b0);
+  color: #17121a;
+  border-radius: 50px;
+  min-height: 54px;
+  padding: 0 27px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(232,201,149,.12);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.primary:active {
+  transform: scale(.96);
+}
+
+.primary:hover {
+  box-shadow: 0 10px 45px rgba(232,201,149,.25);
+}
+
+.hint {
+  margin-top: 17px;
+  color: #777786;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.footer {
+  width: 100%;
+  color: #777786;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding-top: 15px;
+}
+
+.footer b {
+  color: var(--pink);
+  font-weight: 400;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  animation: reveal .85s both;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.screen.active.centered {
+  margin: auto 0;
+}
+
+.card {
+  width: 100%;
+  padding: 29px 23px;
+  margin: 30px 0 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  text-align: left;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.card .label {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 9px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-family: Georgia, serif;
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 21px;
+}
+
+.card p {
+  color: #d0ced7;
+  font-size: 14px;
+  line-height: 1.95;
+  margin-bottom: 17px;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+.card .signature {
+  color: var(--pink);
+  font-family: Georgia, serif;
+  font-size: 21px;
+  margin-top: 27px;
+}
+
+.section-number {
+  margin-top: 45px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.section-title {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-top: 17px;
+}
+
+.section-title em {
+  color: var(--pink);
+  font-weight: 400;
+}
+
+.small-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 18px 0 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.secondary {
+  background: transparent;
+  color: #ccc8d2;
+  border: 1px solid var(--line);
+  border-radius: 40px;
+  padding: 14px 24px;
+  min-height: 46px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.end-symbol {
+  font-size: 55px;
+  margin: 25px 0 15px;
+  animation: heartbeat 2s infinite;
+}
+
+.final-title {
+  font-family: Georgia, serif;
+  font-size: clamp(35px, 10vw, 51px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.final-title span {
+  color: var(--gold);
+}
+
+.final-copy {
+  color: #c8c5cf;
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 330px;
+  margin: 23px auto 30px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-9px) rotate(3deg); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.07); }
+}
+
+@media (max-width: 360px) {
+  .page { padding-left: 17px; padding-right: 17px; }
+  .orbit { width: 92px; height: 92px; margin-bottom: 27px; }
+  .orbit span { font-size: 35px; }
+  h1 { font-size: 48px; }
+  .card { padding: 23px 19px; }
+  .card h2 { font-size: 26px; }
+  .card p { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main class="page">
+  <div class="topline">
+    <span>A little something</span>
+    <span>24 · 10 · 2026</span>
+  </div>
+
+  <!-- OPENING -->
+  <section id="intro" class="hero screen active centered">
+    <div class="orbit"><span>✦</span></div>
+    <p class="eyebrow">For someone who matters</p>
+    <h1>Hey,<em>Hiba.</em></h1>
+    <p class="subtitle">
+      Some people become part of your story
+      and stay there, no matter how much time passes.
+    </p>
+
+    <div class="years">
+      <div><strong>2018</strong><small>THE BEGINNING</small></div>
+      <span class="line"></span>
+      <div><strong>2026</strong><small>STILL HERE</small></div>
+    </div>
+
+    <button class="primary" onclick="openLetter()">
+      YOUR LITTLE SURPRISE &nbsp; ↗
+    </button>
+    <p class="hint">Made with care, just for you.</p>
+  </section>
+
+  <!-- LETTER -->
+  <section id="letter" class="screen">
+    <p class="section-number">01 — A NOTE FOR YOU</p>
+    <h2 class="section-title">First things <em>first.</em></h2>
+
+    <article class="card">
+      <p class="label">A little reminder</p>
+      <h2>Happy belated birthday, Hiba. ♡</h2>
+
+      <p>
+        I know your birthday was yesterday, and I already wished you a
+        happy birthday. But honestly, I didn't want the wishes to end
+        with just a message.
+      </p>
+
+      <p>
+        So here's something a little different. Nothing extravagant,
+        nothing complicated — just a small reminder that you're
+        appreciated more than you probably realise.
+      </p>
+
+      <p>
+        And before anything else, I hope this new chapter brings you
+        genuine happiness, peace of mind, good health, and all those
+        little moments that make life feel beautiful.
+      </p>
+
+      <p class="signature">You deserve a good year, Hiba. ✨</p>
+    </article>
+
+    <button class="primary" onclick="showScreen('friendship')">
+      THERE'S MORE &nbsp; → 
+    </button>
+  </section>
+
+  <!-- FRIENDSHIP -->
+  <section id="friendship" class="screen">
+    <p class="section-number">02 — SINCE 2018</p>
+    <h2 class="section-title">Years change.<br><em>Some things don't.</em></h2>
+
+    <article class="card">
+      <p class="label">To my best friend</p>
+
+      <p>
+        We've been friends since 2018. That's years of life happening,
+        growing up, changing, learning, and becoming different versions
+        of ourselves.
+      </p>
+
+      <p>
+        And even if we don't talk as much as we used to, I hope you know
+        that it doesn't erase the friendship we've built. Life gets
+        busy. Time passes. Sometimes we go quiet without meaning to.
+      </p>
+
+      <p>
+        But I haven't forgotten you, and I haven't forgotten what our
+        friendship means to me. I genuinely hope we get to add many,
+        many more years to our story — 2027, 2028, and all the years
+        after that.
+      </p>
+
+      <p>
+        I hope that years from now, we'll still be able to look back
+        at where it all started and laugh about how long we've known
+        each other.
+      </p>
+
+      <p class="signature">2018 → 2026 → and hopefully, many more. ♡</p>
+    </article>
+
+    <button class="primary" onclick="showScreen('hug')">
+      ONE LAST THING 😂 &nbsp; →
+    </button>
+  </section>
+
+  <!-- HUG -->
+  <section id="hug" class="screen">
+    <p class="section-number">03 — A VERY IMPORTANT ANNOUNCEMENT</p>
+    <h2 class="section-title">Okay, but <em>listen.</em></h2>
+
+    <article class="card">
+      <p class="label">No emotional speech this time</p>
+
+      <h2>I've got one thing to say 😂</h2>
+
+      <p>
+        I know I haven't reached out much lately. I know we haven't
+        been talking all the time.
+      </p>
+
+      <p>
+        But honestly? I still want to give you a proper hug.
+      </p>
+
+      <p>
+        Hahaha, yes, I'm serious. 😂🫂
+      </p>
+
+      <p>
+        No long explanation, no dramatic speech. Just one of those
+        hugs where you don't have to say much, because some friendships
+        don't need constant words to matter.
+      </p>
+
+      <p>
+        So consider this your official reminder: your best friend
+        still cares, still wishes you the best, and still owes you
+        that hug.
+      </p>
+
+      <p class="signature">Hug pending. No expiry date. 🫂</p>
+    </article>
+
+    <button class="primary" onclick="showFinal()">
+      OPEN YOUR FINAL SURPRISE &nbsp; ✦
+    </button>
+  </section>
+
+  <!-- FINAL -->
+  <section id="final" class="screen centered">
+    <p class="section-number">04 — FROM 2018, WITH FRIENDSHIP</p>
+
+    <div class="end-symbol">✧</div>
+
+    <h2 class="final-title">
+      Here's to you,<br><span>Hiba.</span>
+    </h2>
+
+    <p class="final-copy">
+      May this year be kind to you.<br>
+      May you find reasons to smile even on the difficult days.<br>
+      May the dreams you keep quietly in your heart come true.<br><br>
+
+      And may this friendship of ours keep growing,
+      through every new chapter life brings us.
+      <br><br>
+      Happy birthday, best friend. ❤️
+    </p>
+
+    <button class="primary" onclick="celebrateAgain()">
+      ONE MORE CELEBRATION? 🎉
+    </button>
+
+    <p class="small-note">
+      From 2018 to 2026, and hopefully for many years to come.
+    </p>
+  </section>
+
+  <footer class="footer">
+    A friendship worth keeping <b>✦</b>
+  </footer>
+</main>
+
+<script>
+/* ---------- STAR BACKGROUND ---------- */
+const starCanvas = document.getElementById("stars");
+const starCtx = starCanvas.getContext("2d");
+let stars = [];
+
+function resizeStars() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  starCanvas.width = Math.floor(innerWidth * dpr);
+  starCanvas.height = Math.floor(innerHeight * dpr);
+  starCanvas.style.width = innerWidth + "px";
+  starCanvas.style.height = innerHeight + "px";
+  starCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  stars = Array.from({length: Math.min(95, Math.floor(innerWidth / 4))}, () => ({
+    x: Math.random() * innerWidth,
+    y: Math.random() * innerHeight,
+    r: Math.random() * 1.2 + .25,
+    a: Math.random() * .55 + .15,
+    speed: Math.random() * .006 + .002
+  }));
+}
+
+function drawStars(time) {
+  starCtx.clearRect(0, 0, innerWidth, innerHeight);
+
+  for (const s of stars) {
+    const pulse = .65 + Math.sin(time * s.speed + s.x) * .35;
+    starCtx.beginPath();
+    starCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    starCtx.fillStyle = `rgba(232,201,149,${s.a * pulse})`;
+    starCtx.fill();
+  }
+
+  requestAnimationFrame(drawStars);
+}
+
+resizeStars();
+requestAnimationFrame(drawStars);
+addEventListener("resize", resizeStars);
+
+/* ---------- CONFETTI ---------- */
+const confettiCanvas = document.getElementById("confetti");
+const confettiCtx = confettiCanvas.getContext("2d");
+let pieces = [];
+let confettiFrame = null;
+
+function resizeConfetti() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  confettiCanvas.width = Math.floor(innerWidth * dpr);
+  confettiCanvas.height = Math.floor(innerHeight * dpr);
+  confettiCanvas.style.width = innerWidth + "px";
+  confettiCanvas.style.height = innerHeight + "px";
+  confettiCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+resizeConfetti();
+addEventListener("resize", resizeConfetti);
+
+const colors = ["#e8c995", "#f19bb8", "#ffffff", "#d6b5ed", "#b9d9d0"];
+
+function burst(amount = 130) {
+  const originX = innerWidth / 2;
+  const originY = innerHeight * .36;
+
+  for (let i = 0; i < amount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 6 + 2;
+
+    pieces.push({
+      x: originX,
+      y: originY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 2,
+      gravity: .095 + Math.random() * .07,
+      size: Math.random() * 5 + 3,
+      rotation: Math.random() * 6,
+      spin: (Math.random() - .5) * .18,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 100 + Math.random() * 65
+    });
+  }
+
+  if (!confettiFrame) animateConfetti();
+}
+
+function animateConfetti() {
+  confettiCtx.clearRect(0, 0, innerWidth, innerHeight);
+
+  pieces = pieces.filter(p => p.life > 0 && p.y < innerHeight + 40);
+
+  for (const p of pieces) {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += p.gravity;
+    p.vx *= .993;
+    p.rotation += p.spin;
+    p.life--;
+
+    confettiCtx.save();
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.rotation);
+    confettiCtx.globalAlpha = Math.min(1, p.life / 20);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * .65);
+    confettiCtx.restore();
+  }
+
+  if (pieces.length) {
+    confettiFrame = requestAnimationFrame(animateConfetti);
+  } else {
+    confettiFrame = null;
+    confettiCtx.clearRect(0, 0, innerWidth, innerHeight);
+  }
+}
+
+/* ---------- PAGE TRANSITIONS ---------- */
+let currentScreen = "intro";
+
+function showScreen(id) {
+  const current = document.getElementById(currentScreen);
+  const next = document.getElementById(id);
+
+  if (!current || !next || currentScreen === id) return;
+
+  current.classList.remove("active");
+  next.classList.add("active");
+  currentScreen = id;
+
+  window.scrollTo({top: 0, behavior: "smooth"});
+
+  if (id === "letter") {
+    setTimeout(() => burst(65), 250);
+  }
+}
+
+function openLetter() {
+  showScreen("letter");
+  setTimeout(() => burst(90), 100);
+}
+
+function showFinal() {
+  showScreen("final");
+  setTimeout(() => burst(180), 250);
+  setTimeout(() => burst(80), 1100);
+}
+
+function celebrateAgain() {
+  burst(180);
+  setTimeout(() => burst(120), 500);
+}
+
+/* Keep mobile display correctly sized after orientation changes. */
+addEventListener("orientationchange", () => {
+  setTimeout(() => {
+    resizeStars();
+    resizeConfetti();
+  }, 200);
+});
+</script>
+</body>
+</html>
+```
